@@ -1,0 +1,17 @@
+class Solution {
+    int binarysearch(vector<int>&nums,int k,int s,int e){
+        if(s>e)return -1;
+        int mid=(s+e)/2;
+        if(nums[mid]==k)return mid;
+        if(nums[mid]<k)return binarysearch(nums,k,mid+1,e);
+        else{
+            return binarysearch(nums,k,s,mid-1);
+        }
+        return -1;
+    }
+public:
+    int search(vector<int>& nums, int target) {
+        int n=nums.size();
+        return binarysearch(nums,target,0,n-1);
+    }
+};
