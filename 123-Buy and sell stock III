@@ -1,0 +1,28 @@
+class Solution {
+    int helper(int day , int state ,int cap, vector<int>& prices,vector<vector<vector<int>>>&dp){
+        if(day==prices.size()|| cap==0){
+            return 0;
+        }
+        if(dp[day][state][cap]!=-1){
+            return dp[day][state][cap];
+        }
+        if(state==1){
+            int buy=-prices[day]+helper(day+1,0,cap,prices,dp);
+            int skip=helper(day+1,1,cap,prices,dp);
+            return dp[day][state][cap]=max(buy,skip);
+        }
+        else{
+            int sell=prices[day]+helper(day+1,1,cap-1,prices,dp);
+            int hold=helper(day+1,0,cap,prices,dp);
+            return dp[day][state][cap]= max(sell,hold);
+        }
+
+    }
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        
+        vector<vector<vector<int>>>dp(n,vector<vector<int>>(2,vector<int>(3,-1)));
+        return helper(0,1,2,prices,dp);
+    }
+};
