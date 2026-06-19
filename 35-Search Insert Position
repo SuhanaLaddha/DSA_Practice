@@ -1,0 +1,20 @@
+class Solution {
+    int solve(int s,int e,vector<int>& nums,int k){
+        if(s>e)return s;
+        int mid=(s+e)/2;
+        if(nums[mid]==k)return mid;
+        else if(nums[mid]<k){
+            s=mid+1;
+        }
+        else{
+            e=mid-1;
+        }
+        return solve(s,e,nums,k);
+    }
+
+public:
+    int searchInsert(vector<int>& nums, int k) {
+        int n=nums.size();
+        return solve(0,n-1,nums,k);
+    }
+};
